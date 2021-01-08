@@ -6,8 +6,6 @@ WebCraft (HTML5 Minecraft)
 [![GitHub license](https://img.shields.io/github/license/Overv/WebCraft.svg)](https://github.com/Overv/WebCraft/blob/master/LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ce6335d88c8072a3f1d3/maintainability)](https://codeclimate.com/github/WarenGonzaga/WebCraft/maintainability)
 
-**This project is no longer actively maintained!**
-
 This project is intended to become a Minecraft Classic clone using HTML 5 technologies, most notably WebGL and WebSockets. No third-party libraries are used, with the exception of glmatrix and socket.io. People who have written similar demos used libraries such as *three.js*, but it is
 both foolish and inefficient to use a 3D engine for rendering large amount of blocks.
 
@@ -19,9 +17,7 @@ Screenshots
 Structure
 ---------------------
 
-+ *js/* - Includes the different modules that make up the functionality of WebCraft.
-+ *media/* - Contains the graphics resources.
-+ *style/* - Contains stylesheets for the HTML front-ends.
++ *data/* - Contains all data in the project other than singleplayer.html, multiplayer.html, and server.js.
 + *singleplayer.html* - The front-end for the singleplayer client.
 + *multiplayer.html* - The front-end for the multiplayer client.
 + *server.js* - The Node.js server code.
@@ -60,7 +56,7 @@ Typical game set-up
 
 First a new world is created and the block structure is initialised.
 
-	var world = new World( 16, 16, 16 );
+	var world = new World( 30, 30, 30 );
 	world.createFlatWorld( 6 );
 
 The *6* in *createFlatWorld* here is the line between the ground and the first air layer.
