@@ -1,5 +1,3 @@
 @echo off
-echo On the next screen, click singleplayer.html
-ping -n 4 localhost>nul
-localhost.url
+start "" http://localhost:8080/singleplayer.html
 http-server -c-1
