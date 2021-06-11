@@ -9,6 +9,21 @@ WebCraft (HTML5 Minecraft)
 This project is intended to become a Minecraft Classic clone using HTML 5 technologies, most notably WebGL and WebSockets. No third-party libraries are used, with the exception of glmatrix and socket.io. People who have written similar demos used libraries such as *three.js*, but it is
 both foolish and inefficient to use a 3D engine for rendering large amount of blocks.
 
+Running the client and server
+---------------------
+
+The client and server both require NodeJS and NPM to function. You can get it at https://nodejs.org.
+After installing Node and NPM, run InstallDependencies.bat in the release folder to install all required modules.
+
+*Running the client*:
+Start the script **RunGame.bat.**
+
+*Running the server*:
+Open a command prompt in the release folder and run '**node server.js**' (without quotes.)
+
+The client server runs on port 8080, and the server port is on 3000.
+
+
 Screenshots
 ---------------------
 
