@@ -21,7 +21,7 @@ Start the script **RunGame.bat.**
 *Running the server*:
 Open a command prompt in the release folder and run '**node server.js**' (without quotes.)
 
-The client server runs on port 8080, and the server's IP is http://<device ip>:3000/multiplayer.html.
+The client server runs on port 8080, and the server's IP is http://(device ip):3000/multiplayer.html.
 The server window acts as an HTTP server on port 3000, and it connects you to the game server when you order multiplayer.html.
 
 
