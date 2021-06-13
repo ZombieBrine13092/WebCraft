@@ -1,7 +1,8 @@
-Opening singleplayer.html in a browser will not work. All media textures will be missing.
-To run the game, install Node and NPM from https://nodejs.org/en/,
-run InstallDependancies.bat, wait for it to close, and then run RunGame.bat.
-Open a browser and use one of the IPs listed in the console.
+This branch contains the files required to run a WebCraft server.
+Your server should be forwarded on port 3000 if necessary.
 
-To run a server, ensure you have socket.io installed (if not, install with npm) and run the following command in a command prompt:
+Run this node command in the folder where server.js is located:
 node server.js
+
+You can modify this file however you see fit for your server.
+The server requires literally less than 50 MB of memory and a CPU made in at least the last 11 years.
