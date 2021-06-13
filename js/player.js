@@ -55,9 +55,9 @@ Player.prototype.setInputCanvas = function( id )
 	var t = this;
 	document.onkeydown = function( e ) { if ( e.target.tagName != "INPUT" ) { t.onKeyEvent( e.keyCode, true ); return false; } }
 	document.onkeyup = function( e ) { if ( e.target.tagName != "INPUT" ) { t.onKeyEvent( e.keyCode, false ); return false; } }
-	canvas.onmousedown = function( e ) { t.onMouseEvent( e.clientX, e.clientY, MOUSE.DOWN, e.which == 3 ); return false; }
-	canvas.onmouseup = function( e ) { t.onMouseEvent( e.clientX, e.clientY, MOUSE.UP, e.which == 3 ); return false; }
-	canvas.onmousemove = function( e ) { t.onMouseEvent( e.clientX, e.clientY, MOUSE.MOVE, e.which == 3 ); return false; }
+	canvas.onmousedown = function( e ) { t.onMouseEvent( e.clientX, e.clientY, MOUSE.DOWN, e ); return false; }
+	canvas.onmouseup = function( e ) { t.onMouseEvent( e.clientX, e.clientY, MOUSE.UP, e ); return false; }
+	canvas.onmousemove = function( e ) { t.onMouseEvent( e.clientX, e.clientY, MOUSE.MOVE, e ); return false; }
 }
 
 // setMaterialSelector( id )
@@ -125,8 +125,9 @@ Player.prototype.onKeyEvent = function( keyCode, down )
 //
 // Hook for mouse input.
 
-Player.prototype.onMouseEvent = function( x, y, type, rmb )
+Player.prototype.onMouseEvent = function( x, y, type, e )
 {
+	mouseButton = e.which;
 	if ( type == MOUSE.DOWN ) {
 		this.dragStart = { x: x, y: y };
 		this.mouseDown = true;
@@ -134,7 +135,7 @@ Player.prototype.onMouseEvent = function( x, y, type, rmb )
 		this.pitchStart = this.targetPitch = this.angles[0];
 	} else if ( type == MOUSE.UP ) {
 		if ( Math.abs( this.dragStart.x - x ) + Math.abs( this.dragStart.y - y ) < 4 )	
-			this.doBlockAction( x, y, !rmb );
+			this.doBlockAction( x, y, mouseButton );
 
 		this.dragging = false;
 		this.mouseDown = false;
@@ -152,7 +153,7 @@ Player.prototype.onMouseEvent = function( x, y, type, rmb )
 //
 // Called to perform an action based on the player's block selection and input.
 
-Player.prototype.doBlockAction = function( x, y, destroy )
+Player.prototype.doBlockAction = function( x, y, mouseButton )
 {
 	var bPos = new Vector( Math.floor( this.pos.x ), Math.floor( this.pos.y ), Math.floor( this.pos.z ) );
 	var block = this.canvas.renderer.pickAt( new Vector( bPos.x - 4, bPos.y - 4, bPos.z - 4 ), new Vector( bPos.x + 4, bPos.y + 4, bPos.z + 4 ), x, y );
@@ -161,9 +162,11 @@ Player.prototype.doBlockAction = function( x, y, destroy )
 	{
 		var obj = this.client ? this.client : this.world;
 		
-		if ( destroy )
+		if ( mouseButton == 1 )
 			obj.setBlock( block.x, block.y, block.z, BLOCK.AIR );
-		else
+		else if ( mouseButton == 2 )
+			this.buildMaterial = this.world.getBlock(block.x, block.y, block.z);
+		else if ( mouseButton == 3 )
 			obj.setBlock( block.x + block.n.x, block.y + block.n.y, block.z + block.n.z, this.buildMaterial );
 	}
 }
@@ -208,11 +211,20 @@ Player.prototype.update = function()
 		// Jumping
 		if ( this.keys[" "] && !this.falling )
 			velocity.z = 8;
-
+		
+		//Flying
+		if ( this.keys["f"] ) {
+			if ( this.keys[" "] ) {
+				velocity.z = 8;
+			} else {
+				velocity.z = 0;
+			}
+		}
+		
 		// Walking
 		var walkVelocity = new Vector( 0, 0, 0 );
-		if ( !this.falling )
-		{
+		//if ( !this.falling ) // Enable in-air movement
+		//{
 			if ( this.keys["w"] ) {
 				walkVelocity.x += Math.cos( Math.PI / 2 - this.angles[1] );
 				walkVelocity.y += Math.sin( Math.PI / 2 - this.angles[1] );
@@ -229,14 +241,15 @@ Player.prototype.update = function()
 				walkVelocity.x += Math.cos( -Math.PI / 2 + Math.PI / 2 - this.angles[1] );
 				walkVelocity.y += Math.sin( -Math.PI / 2 + Math.PI / 2 - this.angles[1] );
 			}
-		}
+		//}
 		if ( walkVelocity.length() > 0 ) {
 				walkVelocity = walkVelocity.normal();
 				velocity.x = walkVelocity.x * 4;
 				velocity.y = walkVelocity.y * 4;
 		} else {
-			velocity.x /= this.falling ? 1.01 : 1.5;
-			velocity.y /= this.falling ? 1.01 : 1.5;
+			// change the value when falling for less in-air dampening
+			velocity.x /= this.falling ? 1.05 : 1.5;
+			velocity.y /= this.falling ? 1.05 : 1.5;
 		}
 
 		// Resolve collision
