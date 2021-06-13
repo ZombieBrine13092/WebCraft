@@ -1,7 +1,0 @@
-Opening singleplayer.html in a browser will not work. All media textures will be missing.
-To run the game, install Node and NPM from https://nodejs.org/en/,
-run InstallDependancies.bat, wait for it to close, and then run RunGame.bat.
-Open a browser and use one of the IPs listed in the console.
-
-To run a server, ensure you have socket.io installed (if not, install with npm) and run the following command in a command prompt:
-node server.js
