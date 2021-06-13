@@ -35,7 +35,6 @@ Structure
 
 + *data/* - Contains all data in the project other than singleplayer.html, multiplayer.html, and server.js.
 + *singleplayer.html* - The front-end for the singleplayer client.
-+ *multiplayer.html* - The front-end for the multiplayer client.
 + *server.js* - The Node.js server code.
 
 Modules
