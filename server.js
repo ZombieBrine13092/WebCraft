@@ -6,19 +6,19 @@
 // ==========================================
 
 // Parameters
-var WORLD_SX = 128;
-var WORLD_SY = 128;
-var WORLD_SZ = 32;
+var WORLD_SX = 256;
+var WORLD_SY = 256;
+var WORLD_SZ = 64;
 var WORLD_GROUNDHEIGHT = 16;
-var SECONDS_BETWEEN_SAVES = 60;
-var ADMIN_IP = "";
+var SECONDS_BETWEEN_SAVES = 30;
+var ADMIN_IP = "127.0.0.1";
 
 // Load modules
 var modules = {};
-modules.helpers = require( "./js/helpers.js" );
-modules.blocks = require( "./js/blocks.js" );
-modules.world = require( "./js/world.js" );
-modules.network = require( "./js/network.js" );
+modules.helpers = require( "./data/js/helpers.js" );
+modules.blocks = require( "./data/js/blocks.js" );
+modules.world = require( "./data/js/world.js" );
+modules.network = require( "./data/js/network.js" );
 modules.io = require( "socket.io" );
 modules.fs = require( "fs" );
 var log = require( "util" ).log;
@@ -43,7 +43,7 @@ var server = new modules.network.Server( modules.io, 16 );
 server.setWorld( world );
 server.setLogger( log );
 server.setOneUserPerIp( true );
-log( "Waiting for clients..." );
+log( "Ready for clients on port 3000." );
 
 // Chat commands
 server.on( "chat", function( client, nickname, msg )
@@ -68,7 +68,7 @@ server.on( "chat", function( client, nickname, msg )
 		target = server.findPlayerByName( target );
 		
 		if ( target != null ) {
-				server.kick( target.socket, "Kicked by Overv" );
+				server.kick( target.socket, "Player kicked" );
 				return true;
 		} else {
 			server.sendMessage( "Couldn't find that player!", client );
@@ -90,7 +90,7 @@ server.on( "chat", function( client, nickname, msg )
 // Send a welcome message to new clients
 server.on( "join", function( client, nickname )
 {
-	server.sendMessage( "Welcome! Enjoy your stay, " + nickname + "!", client );
+	server.sendMessage( "Welcome to this WebCraft server, " + nickname + "! Enjoy your stay!", client );
 	server.broadcastMessage( nickname + " joined the game.", client );
 } );
 
@@ -104,5 +104,4 @@ server.on( "leave", function( nickname )
 setInterval( function()
 {
 	world.saveToFile( "world" );
-	log( "Saved world to file." );
-}, SECONDS_BETWEEN_SAVES * 1000 );
+}, SECONDS_BETWEEN_SAVES * 5000 );
