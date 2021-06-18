@@ -4,5 +4,7 @@ Your server should be forwarded on port 3000 if necessary.
 Run this node command in the folder where server.js is located:
 node server.js
 
+To install dependencies, run the included batch installer.
+
 You can modify this file however you see fit for your server.
 The server requires literally less than 50 MB of memory and a CPU made in at least the last 11 years.
