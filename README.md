@@ -1,10 +1,5 @@
 WebCraft (HTML5 Minecraft)
 ---------------------
-[![GitHub issues]](https://github.com/ZombieBrine13092/WebCraft/issues)
-[![GitHub forks]](https://github.com/ZombieBrine13092/WebCraft/network)
-[![GitHub stars]](https://github.com/ZombieBrine13092/WebCraft/stargazers)
-[![GitHub license]](https://github.com/ZombieBrine13092/WebCraft/blob/master/LICENSE)
-
 This project is intended to become a Minecraft Classic clone using HTML 5 technologies, most notably WebGL and WebSockets. No third-party libraries are used, with the exception of glmatrix and socket.io. People who have written similar demos used libraries such as *three.js*, but it is
 both foolish and inefficient to use a 3D engine for rendering large amount of blocks.
 
