@@ -5,7 +5,7 @@ both foolish and inefficient to use a 3D engine for rendering large amount of bl
 
 Running the game
 ---------------------
-The game simply opens in a browser, so there's no client setup, but here's how to start a server:
+The game simply opens in a browser, so there's no client setup, but here's how to start a server.
 (*Port 3000 can be forwarded onto the Internet for external connections*)
 
 The server requires NodeJS and NPM to function. You can get it at https://nodejs.org.
