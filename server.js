@@ -43,7 +43,7 @@ var server = new modules.network.Server( modules.io, 16 );
 server.setWorld( world );
 server.setLogger( log );
 server.setOneUserPerIp( true );
-log( "Ready for clients on port 8080." );
+log( "Ready for clients on port 3000." );
 
 // Chat commands
 server.on( "chat", function( client, nickname, msg )
