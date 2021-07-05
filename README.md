@@ -17,6 +17,9 @@ Open a command prompt in the release folder and run '**node server.js**' (withou
 The server's IP is http://<device ip>:3000/multiplayer.html.
 The server window acts as an HTTP server on port 3000, and it connects you to the game server when you request multiplayer.html.
 
+Example Server
+---------------------
+http://webcraft.sytes.net
 
 Screenshots
 ---------------------
